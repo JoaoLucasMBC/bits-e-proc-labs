@@ -125,42 +125,53 @@ def bin2hex(hex0, sw):
         if sw[4:0] == 0:
             hex0.next = "1000000"
         elif sw[4:0] == 1:
-            hex0.next = "1000000"
+            hex0.next = "1111001"
         elif sw[4:0] == 2:
-            hex0.next = "1000000"
+            hex0.next = "0100100"
         elif sw[4:0] == 3:
-            hex0.next = "1000000"
+            hex0.next = "0110000"
         elif sw[4:0] == 4:
-            hex0.next = "1000000"
+            hex0.next = "0011001"
         elif sw[4:0] == 5:
-            hex0.next = "1000000"
+            hex0.next = "0010010"
         elif sw[4:0] == 6:
-            hex0.next = "1000000"
+            hex0.next = "0000010"
         elif sw[4:0] == 7:
-            hex0.next = "1000000"
+            hex0.next = "1111000"
         elif sw[4:0] == 8:
-            hex0.next = "1000000"
+            hex0.next = "0000000"
         elif sw[4:0] == 9:
-            hex0.next = "1000000"
-        elif sw[4:0] == 10:
-            hex0.next = "1000000"
-        elif sw[4:0] == 11:
-            hex0.next = "1000000"
-        elif sw[4:0] == 12:
-            hex0.next = "1000000"
-        elif sw[4:0] == 13:
-            hex0.next = "1000000"
-        elif sw[4:0] == 14:
-            hex0.next = "1000000"
+            hex0.next = "0010000"
         else:
-            hex0.next = "1000000"
+            hex0.next = "1111111"
 
     return instances()
 
+
+
+#OBS: VETORES NAO FORAM CRIADOS NA MAO! O arquivo vector.py foi utilizado para tal tarefa.
+DIG0 = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+DIG1 = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9)
 @block
-def bin2bcd(b, dig1, dig0):
+def bin2bcd(b, bcd1, bcd0):
+    """
+    componente que converte um vetor de b[8:] (bin)
+    para dois digitos em BCD
+
+    Exemplo:
+    bin  = `01010010`
+    BCD1 = 8
+    BCD0 = 2
+    """
+    
+
     @always_comb
     def comb():
-       pass
 
-    return instances()
+        bcd0.next = DIG0[int(b)]
+        bcd1.next = DIG1[int(b)]
+
+        #bcd0.next = int(str(int(bin(b), 2))[1])
+        #bcd1.next = int(str(int(bin(b), 2))[0])
+
+    return comb
