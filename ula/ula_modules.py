@@ -62,3 +62,17 @@ def adder(x, y, soma, carry):
         carry.next = carry_aux[n - 1]
 
     return instances()
+
+
+@block
+def adderIntbv(x, y, soma, carry):
+    @always_comb
+    def comb():
+        sum_ = x + y
+        soma.next = sum_
+        if sum_ > x.max - 1:
+            carry.next = 1
+        else:
+            carry.next = 0
+    
+    return comb
